@@ -26,40 +26,57 @@ Your Mani
 Your Husband
 Your Everything`;
 
+  const [showGiftBox, setShowGiftBox] = useState(true);
   const [displayedMessage, setDisplayedMessage] = useState("");
   const speed = 40;
 
   useEffect(() => {
-    let i = 0;
+    if (!showGiftBox) {
+      let i = 0;
+      const interval = setInterval(() => {
+        setDisplayedMessage(fullMessage.slice(0, i + 1));
+        i++;
+        if (i === fullMessage.length) {
+          clearInterval(interval);
+        }
+      }, speed);
 
-    const interval = setInterval(() => {
-      setDisplayedMessage(fullMessage.slice(0, i + 1));
-      i++;
-      if (i === fullMessage.length) {
-        clearInterval(interval);
-      }
-    }, speed);
-
-    return () => clearInterval(interval); // cleanup
-  }, []);
+      return () => clearInterval(interval); // cleanup
+    }
+  }, [showGiftBox]);
 
   return (
     <div style={styles.body}>
-      <div style={styles.wrapper}>
-        <div style={styles.container}>
-          <h1 style={styles.heading}>To My Beautiful Aishwarya ❤️</h1>
-        
-          <p style={styles.message}>{displayedMessage}</p>
-          <div style={styles.heart}>💖</div>
+      {showGiftBox ? (
+        <div style={styles.wrapper}>
+          <div style={styles.giftContainer} onClick={() => setShowGiftBox(false)}>
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/716/716784.png"
+              alt="Gift Box"
+              style={styles.giftBox}
+            />
+            <p style={styles.clickText}>Click to Open Your Surprise! 🎁</p>
+          </div>
         </div>
-      </div>
-      <audio autoPlay loop>
-        <source
-          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-          type="audio/mpeg"
-        />
-        Your browser does not support the audio tag.
-      </audio>
+      ) : (
+        <>
+          <div style={styles.wrapper}>
+            <div style={styles.container}>
+              <h1 style={styles.heading}>To My Beautiful Aishwarya ❤️</h1>
+              <p style={styles.message}>{displayedMessage}</p>
+              <div style={styles.heart}>💖</div>
+            </div>
+          </div>
+        <audio autoPlay loop>
+  <source
+    src="https://drive.google.com/uc?export=download&id=1aQZxsNIKOI_G9mpJg3_N4yrg4adj_owr"
+    type="audio/mpeg"
+  />
+  Your browser does not support the audio tag.
+</audio>
+
+        </>
+      )}
     </div>
   );
 };
@@ -80,6 +97,20 @@ const styles = {
     padding: "50px 20px",
     minHeight: "100vh",
   },
+  giftContainer: {
+    textAlign: "center",
+    cursor: "pointer",
+  },
+  giftBox: {
+    width: "150px",
+    transition: "transform 0.3s ease",
+  },
+  clickText: {
+    marginTop: "15px",
+    fontSize: "1.2rem",
+    color: "#e91e63",
+    fontWeight: "bold",
+  },
   container: {
     textAlign: "center",
     padding: "30px",
@@ -93,11 +124,6 @@ const styles = {
     fontSize: "2.2rem",
     color: "#e91e63",
     marginBottom: "10px",
-  },
-  image: {
-    maxWidth: "100%",
-    borderRadius: "20px",
-    marginBottom: "20px",
   },
   message: {
     fontSize: "1.2rem",
