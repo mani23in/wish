@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const LoveLetter = () => {
   const fullMessage = `My Love,
 
-Hey aishu, since ne epa en life the vandhiyo enakula 
+Hey aishu, since ne epa en life la vandhiyo enakula 
 nerya changes enake teryudhu ipola neryave sirikren 
 happy life a move panren ne vandha time o ila un presence o
 ena romba happy a vachiruku feel lucky to have you. 
@@ -28,7 +28,7 @@ Your Everything`;
 
   const [showGiftBox, setShowGiftBox] = useState(true);
   const [displayedMessage, setDisplayedMessage] = useState("");
-  const speed = 40;
+  const speed = 100;
 
   useEffect(() => {
     if (!showGiftBox) {
